@@ -51,5 +51,7 @@ const start = async () => {
       console.log(err);
     }
   };
-  start();
+start();
+  
+module.exports = app;
 
