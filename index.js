@@ -18,7 +18,7 @@ app.post('/short', async (req, res) => {
     const { link } = req.body;
     const userLink = await Link.findOne({ link });
     if (userLink) { 
-        let url = `http://localhost:5000/getlink?id=${userLink.hashCode}`;
+        let url = `https://link-shortner-sooty.vercel.app/getlink?id=${userLink.hashCode}`;
         return res.json({ message: url });
     }
     const hashCode = crypto.randomBytes(5).toString("hex");
@@ -26,7 +26,7 @@ app.post('/short', async (req, res) => {
         link,
         hashCode,
     });
-    let url = `http://localhost:5000/getlink?id=${shortLink.hashCode}`;
+    let url = `https://link-shortner-sooty.vercel.app/getlink?id=${shortLink.hashCode}`;
     res.json({ message: url });
 
 });
