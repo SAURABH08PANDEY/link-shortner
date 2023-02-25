@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const connectDB = require('./connectDB');
 const Link= require('./Link');
 const app = express();
-const host = `https://link-shortner-sooty.vercel.app/`;
+const host = `https://e69.vercel.app/`;
 // const host = `http://localhost:5000/`;
 
 require("dotenv").config();
