@@ -3,6 +3,8 @@ const crypto = require("crypto");
 const connectDB = require('./connectDB');
 const Link= require('./Link');
 const app = express();
+const host = `https://link-shortner-sooty.vercel.app/`;
+// const host = `http://localhost:5000/`;
 
 require("dotenv").config();
 const port = process.env.PORT || 5000;
@@ -18,7 +20,7 @@ app.post('/short', async (req, res) => {
     const { link } = req.body;
     const userLink = await Link.findOne({ link });
     if (userLink) { 
-        let url = `https://link-shortner-sooty.vercel.app/getlink?id=${userLink.hashCode}`;
+        let url = `${host}${userLink.hashCode}`;
         return res.json({ message: url });
     }
     const hashCode = crypto.randomBytes(5).toString("hex");
@@ -26,13 +28,14 @@ app.post('/short', async (req, res) => {
         link,
         hashCode,
     });
-    let url = `https://link-shortner-sooty.vercel.app/getlink?id=${shortLink.hashCode}`;
+    let url = `${host}${shortLink.hashCode}`;
     res.json({ message: url });
 
 });
 
-app.get('/getlink', async (req, res) => {
-    const { id } = req.query;
+app.get('/:getlink', async (req, res) => {
+    const id = req.params.getlink;
+
     const link = await Link.findOne({ hashCode: id });
     if (link) {
         res.redirect(link.link);
